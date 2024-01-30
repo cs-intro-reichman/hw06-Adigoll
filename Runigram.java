@@ -17,13 +17,12 @@ public class Runigram
 
 		// Creates an image which will be the result of various 
 		// image processing operations:
-		Color[][] imageOut;
 
 		// Tests the horizontal flipping of an image:
 	//	imageOut = flippedHorizontally(tinypic);
-		imageOut = flippedVertically(tinypic);
-		System.out.println();
-		print(imageOut);
+		Color [][] gray= grayScaled(tinypic);
+		print(blend(tinypic,gray,0.13));
+		print(tinypic);
 		
 		//// Write here whatever code you need in order to test your work.
 		//// You can reuse / overide the contents of the imageOut array.
@@ -221,10 +220,15 @@ public class Runigram
 	public static void morph(Color[][] source, Color[][] target, int n) 
 	{
 		double alpha;
+		if(target.length != source.length || target[0].length != source[0].length)
+		{
+			target = scaled(target, source[0].length, source.length);
+		}
 		for (int t = 0; t <= n; t++)
 		{
 			alpha = (n - t) / n;
 			display(blend(source, target, alpha));
+			StdDraw.pause(500);
 		}
 	}
 	
